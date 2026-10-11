@@ -14,6 +14,17 @@
 
 void Print_Binary(uint8_t value_to_convert)
 {
-    // Your Print_Binary function implementation goes here
+    int8_t bit_position;
 
+    for (bit_position = 7; bit_position >= 0; bit_position--)
+    {
+        if (value_to_convert & (1U << bit_position))
+        {
+            printf("1");
+        }
+        else
+        {
+            printf("0");
+        }
+    }
 }

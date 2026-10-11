@@ -21,6 +21,72 @@
 #include "inc/Reflectance_Sensor.h"
 #include "inc/Print_Binary.h"
 
+void Detect_Line_Position(uint8_t reflectance_sensor_data)
+{
+    switch (reflectance_sensor_data)
+    {
+        // Center: 0001 1000
+        case 0x18:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_GREEN);
+            break;
+
+        // Slightly left from center: 0001 1100
+        case 0x1C:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_YELLOW);
+            break;
+
+        // Slightly right from center: 0011 1000
+        case 0x38:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_PINK);
+            break;
+
+        // Far left from center: 0000 0001
+        case 0x01:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_WHITE);
+            break;
+
+        // Far right from center: 1000 0000
+        case 0x80:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_SKY_BLUE);
+            break;
+
+        // Left turn: 1111 1000
+        case 0xF8:
+            LED1_Output(RED_LED_ON);
+            LED2_Output(RGB_LED_WHITE);
+            break;
+
+        // Right turn: 0001 1111
+        case 0x1F:
+            LED1_Output(RED_LED_ON);
+            LED2_Output(RGB_LED_SKY_BLUE);
+            break;
+
+        // T-intersection: 1111 1111
+        case 0xFF:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_BLUE);
+            break;
+
+        // Dead end: 0000 0000
+        case 0x00:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_RED);
+            break;
+
+        // Any other sensor reading
+        default:
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_OFF);
+            break;
+    }
+}
+
 int main(void)
 {
     // Initialize the 48 MHz Clock
@@ -42,7 +108,12 @@ int main(void)
     while(1)
     {
         reflectance_sensor_data = Reflectance_Sensor_Read(1000);
+
         Print_Binary(reflectance_sensor_data);
+        printf("\n");
+
+        Detect_Line_Position(reflectance_sensor_data);
+
         Clock_Delay1ms(10);
     }
 }
