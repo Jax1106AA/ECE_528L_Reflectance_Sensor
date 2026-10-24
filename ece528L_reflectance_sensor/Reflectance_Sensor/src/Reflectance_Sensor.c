@@ -31,7 +31,7 @@
  * refer to the product page: https://www.pololu.com/product/3672
  *
  * @author Aaron Nanas
- *
+ * @author Aolany Acosta and Hernan Zapien 
  */
 
 #include "../inc/Reflectance_Sensor.h"
