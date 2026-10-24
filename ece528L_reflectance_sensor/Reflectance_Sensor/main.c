@@ -10,7 +10,7 @@
  * To verify the pinout of the user buttons and LEDs, refer to the MSP432P401R SimpleLink Microcontroller LaunchPad Development Kit User's Guide
  * Link: https://docs.rs-online.com/3934/A700000006811369.pdf
  *
- * @author
+ * @author Aolany Acosta and Hernan Zapien Robles
  */
 
 #include <stdint.h>
@@ -110,10 +110,9 @@ int main(void)
         reflectance_sensor_data = Reflectance_Sensor_Read(1000);
 
         Print_Binary(reflectance_sensor_data);
-        printf("\n");
 
         Detect_Line_Position(reflectance_sensor_data);
 
-        Clock_Delay1ms(10);
+        Clock_Delay1ms(100);
     }
 }
