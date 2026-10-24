@@ -7,7 +7,7 @@
  * It relies on the EUSCI_A0_UART driver.
  *
  * @author Aaron Nanas
- * @author Aolany Acosta and Hernan Zapien
+ * @author Aolany Acosta and Hernan Zapien Robles
  */
 
 #include "../inc/Print_Binary.h"
@@ -15,6 +15,8 @@
 void Print_Binary(uint8_t value_to_convert)
 {
     int8_t bit_position;
+
+    printf("Binary: ");
 
     for (bit_position = 7; bit_position >= 0; bit_position--)
     {
@@ -26,9 +28,12 @@ void Print_Binary(uint8_t value_to_convert)
         {
             printf("0");
         }
+
         if (bit_position == 4)
         {
             printf("_");
         }
     }
+
+    printf("\n");
 }
